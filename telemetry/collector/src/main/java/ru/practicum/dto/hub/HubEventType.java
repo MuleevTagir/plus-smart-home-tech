@@ -8,7 +8,7 @@ import ru.practicum.dto.hub.scenario.ScenarioRemovedEvent;
 import ru.yandex.practicum.kafka.telemetry.event.*;
 
 public enum HubEventType {
-    DEVICE_ADDED {
+    DEVICE_ADDED_EVENT {
         @Override
         public SpecificRecordBase mapToHubSpecificRecordBase(HubEvent hubEvent) {
             DeviceAddedEvent deviceAddedEvent = (DeviceAddedEvent) hubEvent;
@@ -27,7 +27,7 @@ public enum HubEventType {
                     .build();
         }
     },
-    SCENARIO_ADDED {
+    SCENARIO_ADDED_EVENT {
         @Override
         public SpecificRecordBase mapToHubSpecificRecordBase(HubEvent hubEvent) {
             ScenarioAddedEvent scenarioAddedEvent = (ScenarioAddedEvent) hubEvent;
