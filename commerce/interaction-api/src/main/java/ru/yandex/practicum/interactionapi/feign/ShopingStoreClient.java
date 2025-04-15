@@ -8,6 +8,7 @@ import ru.yandex.practicum.interactionapi.dto.PageableDto;
 import ru.yandex.practicum.interactionapi.dto.ProductDto;
 import ru.yandex.practicum.interactionapi.enums.ProductCategory;
 import ru.yandex.practicum.interactionapi.enums.QuantityState;
+import ru.yandex.practicum.interactionapi.request.SetProductQuantityStateRequest;
 
 import java.util.List;
 import java.util.UUID;
@@ -29,6 +30,9 @@ public interface ShopingStoreClient {
 
     @PostMapping("/quantityState")
     Boolean setProductQuantityState(@RequestParam UUID productId, @RequestParam QuantityState quantityState);
+
+    @PostMapping("/quantityState")
+    Boolean setProductQuantityState(@Valid SetProductQuantityStateRequest setProductQuantityStateRequest);
 
     @GetMapping("/{productId}")
     ProductDto getProduct(@PathVariable @NotNull UUID productId);
