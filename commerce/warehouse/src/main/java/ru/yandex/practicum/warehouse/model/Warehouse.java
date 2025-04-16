@@ -10,10 +10,10 @@ import lombok.experimental.FieldDefaults;
 import java.util.UUID;
 
 @Entity
-@Table(name = "warehouse_product")
 @Getter
 @Setter
 @Builder
+@Table(name = "warehouse_product")
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -21,7 +21,7 @@ public class Warehouse {
     @Id
     UUID productId;
     Long quantity;
-    Boolean fragile;
+    boolean fragile;
     @Embedded
     Dimension dimension;
     double weight;
