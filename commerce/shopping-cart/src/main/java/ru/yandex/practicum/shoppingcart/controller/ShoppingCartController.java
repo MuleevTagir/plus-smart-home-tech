@@ -22,69 +22,39 @@ public class ShoppingCartController {
 
     @GetMapping
     public ShoppingCartDto getShoppingCart(@RequestParam String username) {
-        try {
-            log.info("Получение актуальной корзины для авторизованного пользователя. {}", username);
-            return shoppingCartService.getShoppingCart(username);
-        } catch (Exception e) {
-            log.error("Ошибка получения актуальной корзины.");
-            throw e;
-        }
+        log.info("Получение актуальной корзины для авторизованного пользователя. {}", username);
+        return shoppingCartService.getShoppingCart(username);
     }
 
 
     @PutMapping
     public ShoppingCartDto addProductToShoppingCart(@RequestParam String username, @RequestBody Map<UUID, Long> request) {
-        try {
-            log.info("Добавление товара в корзину {}", username);
-            return shoppingCartService.addProductToShoppingCart(username, request);
-        } catch (Exception e) {
-            log.error("Ошибка добавления товара в корзину.");
-            throw e;
-        }
+        log.info("Добавление товара в корзину {}", username);
+        return shoppingCartService.addProductToShoppingCart(username, request);
     }
 
     @DeleteMapping
     public void deactivateCurrentShoppingCart(@RequestParam String username) {
-        try {
-            log.info("Деактивация корзины товаров для пользователя {}", username);
-            shoppingCartService.deactivateCurrentShoppingCart(username);
-        } catch (Exception e) {
-            log.error("Ошибка деактивации корзины товаров для пользователя.");
-            throw e;
-        }
+        log.info("Деактивация корзины товаров для пользователя {}", username);
+        shoppingCartService.deactivateCurrentShoppingCart(username);
     }
 
     @PostMapping("/remove")
     public ShoppingCartDto removeFromShoppingCart(@RequestParam String username, @RequestBody Map<UUID, Long> request) {
-        try {
-            log.info("Изменение состава товаров в корзине {}", username);
-            return shoppingCartService.removeFromShoppingCart(username, request);
-        } catch (Exception e) {
-            log.error("Ошибка изменения состава товаров в корзине.");
-            throw e;
-        }
+        log.info("Изменение состава товаров в корзине {}", username);
+        return shoppingCartService.removeFromShoppingCart(username, request);
     }
 
     @PostMapping("/change-quantity")
     public ShoppingCartDto changeProductQuantity(@RequestParam String username,
                                                  @RequestBody @Valid ChangeProductQuantityRequest requestDto) {
-        try {
-            log.info("Изменение количества товаров в корзине. {}", username);
-            return shoppingCartService.changeProductQuantity(username, requestDto);
-        } catch (Exception e) {
-            log.error("Ошибка изменения количества товаров в корзине.");
-            throw e;
-        }
+        log.info("Изменение количества товаров в корзине. {}", username);
+        return shoppingCartService.changeProductQuantity(username, requestDto);
     }
 
     @PostMapping("/booking")
     public BookedProductsDto bookingProductsForUser(@RequestParam String username) {
-        try {
-            log.info("Бронирование корзины покупок для пользователя {}", username);
-            return shoppingCartService.bookingProductsForUser(username);
-        } catch (Exception e) {
-            log.error("Ошибка бронирования корзины покупок для пользователя.");
-            throw e;
-        }
+        log.info("Бронирование корзины покупок для пользователя {}", username);
+        return shoppingCartService.bookingProductsForUser(username);
     }
 }

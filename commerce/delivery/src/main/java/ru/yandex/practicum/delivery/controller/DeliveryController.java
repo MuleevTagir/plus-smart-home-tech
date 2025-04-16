@@ -20,56 +20,31 @@ public class DeliveryController {
 
     @PutMapping
     public DeliveryDto planDelivery(@RequestBody @Valid DeliveryDto deliveryDto) {
-        try {
-            log.info("Создать новую доставку в БД {}", deliveryDto);
-            return deliveryService.planDelivery(deliveryDto);
-        } catch (Exception e) {
-            log.error("Ошибка создания новой доставки.");
-            throw e;
-        }
+        log.info("Создать новую доставку в БД {}", deliveryDto);
+        return deliveryService.planDelivery(deliveryDto);
     }
 
     @PostMapping("/successful")
     public void deliverySuccessful(@RequestBody UUID deliveryId) {
-        try {
-            log.info("Эмуляция успешной доставки товара {}", deliveryId);
-            deliveryService.deliverySuccessful(deliveryId);
-        } catch (Exception e) {
-            log.error("Ошибка эмуляции.");
-            throw e;
-        }
+        log.info("Эмуляция успешной доставки товара {}", deliveryId);
+        deliveryService.deliverySuccessful(deliveryId);
     }
 
     @PostMapping("/picked")
     public void deliveryPicked(@RequestBody UUID deliveryId) {
-        try {
-            log.info("Эмуляция получения товара в доставку {}", deliveryId);
-            deliveryService.deliveryPicked(deliveryId);
-        } catch (Exception e) {
-            log.error("Ошибка эмуляции.");
-            throw e;
-        }
+        log.info("Эмуляция получения товара в доставку {}", deliveryId);
+        deliveryService.deliveryPicked(deliveryId);
     }
 
     @PostMapping("/failed")
     public void deliveryFailed(@RequestBody UUID deliveryId) {
-        try {
-            log.info("Эмуляция неудачного вручения товара {}", deliveryId);
-            deliveryService.deliveryFailed(deliveryId);
-        } catch (Exception e) {
-            log.error("Ошибка эмуляции.");
-            throw e;
-        }
+        log.info("Эмуляция неудачного вручения товара {}", deliveryId);
+        deliveryService.deliveryFailed(deliveryId);
     }
 
     @PostMapping("/cost")
     public Double deliveryCost(@RequestBody @Valid OrderDto orderDto) {
-        try {
-            log.info("Расчёт полной стоимости доставки заказа {}", orderDto);
-            return deliveryService.deliveryCost(orderDto);
-        } catch (Exception e) {
-            log.error("Ошибка расчёта полной стоимости доставки заказа.");
-            throw e;
-        }
+        log.info("Расчёт полной стоимости доставки заказа {}", orderDto);
+        return deliveryService.deliveryCost(orderDto);
     }
 }

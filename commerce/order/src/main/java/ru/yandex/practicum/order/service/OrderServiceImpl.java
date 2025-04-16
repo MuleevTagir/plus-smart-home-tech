@@ -30,7 +30,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(isolation = Isolation.READ_COMMITTED)
+@Transactional
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
@@ -56,7 +56,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto createNewOrder(CreateNewOrderRequest newOrderRequest) {
+    public OrderDto create(CreateNewOrderRequest newOrderRequest) {
         Order order = Order.builder()
                 .shoppingCartId(newOrderRequest.getShoppingCart().getShoppingCartId())
                 .products(newOrderRequest.getShoppingCart().getProducts())

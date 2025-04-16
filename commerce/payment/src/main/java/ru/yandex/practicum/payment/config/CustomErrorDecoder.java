@@ -12,7 +12,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class CustomErrorDecoder implements ErrorDecoder {
+
     private final ErrorDecoder defaultDecoder = new Default();
+
+    private final ObjectMapper mapper;
+
+    public CustomErrorDecoder(ObjectMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public Exception decode(String s, Response response) {
@@ -20,7 +27,6 @@ public class CustomErrorDecoder implements ErrorDecoder {
         ErrorResponse errorResponse;
 
         try (InputStream body = response.body().asInputStream()) {
-            ObjectMapper mapper = new ObjectMapper();
             errorResponse = mapper.readValue(body, ErrorResponse.class);
         } catch (IOException ex) {
             return new Exception(ex.getMessage());

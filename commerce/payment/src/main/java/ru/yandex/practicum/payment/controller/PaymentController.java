@@ -23,56 +23,31 @@ public class PaymentController {
 
     @PostMapping
     public PaymentDto createPayment(@RequestBody @Valid OrderDto orderDto) {
-        try {
-            log.info("Формирование оплаты для заказа (переход в платежный шлюз): {}", orderDto);
-            return paymentService.createPayment(orderDto);
-        } catch (Exception e) {
-            log.error("Ошибка формирования оплаты для заказа.");
-            throw e;
-        }
+        log.info("Формирование оплаты для заказа (переход в платежный шлюз): {}", orderDto);
+        return paymentService.createPayment(orderDto);
     }
 
     @PostMapping("/totalCost")
     public Double getTotalCost(@RequestBody @Valid OrderDto orderDto) {
-        try {
-            log.info("Расчёт полной стоимости заказа: {}", orderDto);
-            return paymentService.getTotalCost(orderDto);
-        } catch (Exception e) {
-            log.error("Ошибка расчёта полной стоимости заказа: .");
-            throw e;
-        }
+        log.info("Расчёт полной стоимости заказа: {}", orderDto);
+        return paymentService.getTotalCost(orderDto);
     }
 
     @PostMapping("/refund")
     public void paymentSuccess(@RequestBody UUID orderId) {
-        try {
-            log.info("Метод для эмуляции успешной оплаты в платежного шлюза: {}", orderId);
-            paymentService.paymentSuccess(orderId);
-        } catch (Exception e) {
-            log.error("Ошибка метода.");
-            throw e;
-        }
+        log.info("Метод для эмуляции успешной оплаты в платежного шлюза: {}", orderId);
+        paymentService.paymentSuccess(orderId);
     }
 
     @PostMapping("/productCost")
     public Double productCost(@RequestBody @Valid OrderDto orderDto) {
-        try {
-            log.info("Расчёт стоимости товаров в заказе: {}", orderDto);
-            return paymentService.productCost(orderDto);
-        } catch (Exception e) {
-            log.error("Ошибка расчёта стоимости товаров в заказе.");
-            throw e;
-        }
+        log.info("Расчёт стоимости товаров в заказе: {}", orderDto);
+        return paymentService.productCost(orderDto);
     }
 
     @PostMapping("/failed")
     public void paymentFailed(@RequestBody UUID orderId) {
-        try {
-            log.info("Метод для эмуляции отказа в оплате платежного шлюза: {}", orderId);
-            paymentService.paymentFailed(orderId);
-        } catch (Exception e) {
-            log.error("Ошибка метода.");
-            throw e;
-        }
+        log.info("Метод для эмуляции отказа в оплате платежного шлюза: {}", orderId);
+        paymentService.paymentFailed(orderId);
     }
 }

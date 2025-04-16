@@ -11,7 +11,7 @@ public interface OrderService {
 
     List<OrderDto> getClientOrders(String username, Integer page, Integer size);
 
-    OrderDto createNewOrder(CreateNewOrderRequest newOrderRequest);
+    OrderDto create(CreateNewOrderRequest newOrderRequest);
 
     OrderDto productReturn(ProductReturnRequest returnRequest);
 

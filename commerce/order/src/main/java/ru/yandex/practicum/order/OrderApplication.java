@@ -11,7 +11,6 @@ import ru.yandex.practicum.interactionapi.feign.WarehouseClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(clients = {WarehouseClient.class, DeliveryClient.class, PaymentClient.class, ShoppingCartClient.class})
 public class OrderApplication {
 
     public static void main(String[] args) {
