@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.interactionapi.dto.PageableDto;
-import ru.yandex.practicum.interactionapi.enums.QuantityState;
-import ru.yandex.practicum.interactionapi.feign.ShopingStoreClient;
 import ru.yandex.practicum.interactionapi.request.SetProductQuantityStateRequest;
 import ru.yandex.practicum.interactionapi.dto.ProductDto;
 import ru.yandex.practicum.interactionapi.enums.ProductCategory;
@@ -18,50 +16,75 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
+@RequestMapping("/api/v1/shopping-store")
 @RequiredArgsConstructor
-public class ShoppingStoreController implements ShopingStoreClient {
+public class ShoppingStoreController {
 
     private final ShoppingStoreService shoppingStoreService;
 
-    @Override
-    public List<ProductDto> getProducts(@RequestParam ProductCategory productCategory,
-                                        @Valid PageableDto pageableDto) {
-        log.info("Получение списка товаров по типу в пагинированном виде.");
-        return shoppingStoreService.getProducts(productCategory, pageableDto);
+    @GetMapping
+    public List<ProductDto> getProducts(@RequestParam ProductCategory productCategory, @Valid PageableDto pageableDto) {
+        try {
+            log.info("Получение списка товаров по типу в пагинированном виде.");
+            return shoppingStoreService.getProducts(productCategory, pageableDto);
+        } catch (Exception e) {
+            log.error("Ошибка получения списка товаров.");
+            throw e;
+        }
     }
 
-    @Override
+    @PutMapping
     public ProductDto createNewProduct(@RequestBody @Valid ProductDto productDto) {
-        log.info("Создание нового товара в ассортименте {}", productDto);
-        return shoppingStoreService.createNewProduct(productDto);
+        try {
+            log.info("Создание нового товара в ассортименте {}", productDto);
+            return shoppingStoreService.createNewProduct(productDto);
+        } catch (Exception e) {
+            log.error("Ошибка создания нового товара.");
+            throw e;
+        }
     }
 
-    @Override
+    @PostMapping
     public ProductDto updateProduct(@RequestBody @Valid ProductDto productDto) {
-        log.info("Обновление товара в ассортименте {}", productDto);
-        return shoppingStoreService.updateProduct(productDto);
+        try {
+            log.info("Обновление товара в ассортименте {}", productDto);
+            return shoppingStoreService.updateProduct(productDto);
+        } catch (Exception e) {
+            log.error("Ошибка обновления товара.");
+            throw e;
+        }
     }
 
-    @Override
+    @PostMapping("/removeProductFromStore")
     public Boolean removeProductFromStore(@RequestBody @NotNull UUID productId) {
-        log.info("Удаление товара из ассортимента магазина. Функция для менеджерского состава. {}", productId);
-        return shoppingStoreService.removeProductFromStore(productId);
+        try {
+            log.info("Удаление товара из ассортимента магазина. Функция для менеджерского состава. {}", productId);
+            return shoppingStoreService.removeProductFromStore(productId);
+        } catch (Exception e) {
+            log.error("Ошибка удаления товара из магазина.");
+            throw e;
+        }
     }
 
-    @Override
-    public Boolean setProductQuantityState(UUID productId, QuantityState quantityState) {
-        return null;
-    }
-
-    @Override
+    @PostMapping("/quantityState")
     public Boolean setProductQuantityState(@Valid SetProductQuantityStateRequest setProductQuantityStateRequest) {
-        log.info("Установка статуса по товару {}", setProductQuantityStateRequest);
-        return shoppingStoreService.setProductQuantityState(setProductQuantityStateRequest);
+        try {
+            log.info("Установка статуса по товару {}", setProductQuantityStateRequest);
+            return shoppingStoreService.setProductQuantityState(setProductQuantityStateRequest);
+        } catch (Exception e) {
+            log.error("Ошибка установки статуса.");
+            throw e;
+        }
     }
 
-    @Override
+    @GetMapping("/{productId}")
     public ProductDto getProduct(@PathVariable @NotNull UUID productId) {
-        log.info("Получение сведений по товару из БД: {}", productId);
-        return shoppingStoreService.getProduct(productId);
+        try {
+            log.info("Получение сведений по товару из БД: {}", productId);
+            return shoppingStoreService.getProduct(productId);
+        } catch (Exception e) {
+            log.error("Ошибка получения сведений по товару из БД.");
+            throw e;
+        }
     }
 }

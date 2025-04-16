@@ -8,7 +8,7 @@ import ru.yandex.practicum.interactionapi.feign.WarehouseClient;
 import ru.yandex.practicum.interactionapi.request.ChangeProductQuantityRequest;
 import ru.yandex.practicum.interactionapi.dto.ShoppingCartDto;
 import ru.yandex.practicum.shoppingcart.exception.NoProductsInShoppingCartException;
-import ru.yandex.practicum.shoppingcart.exception.NotAuthorizedUserException;
+import ru.yandex.practicum.interactionapi.exception.NotAuthorizedUserException;
 import ru.yandex.practicum.shoppingcart.mapper.ShoppingCartMapper;
 import ru.yandex.practicum.shoppingcart.model.ShoppingCart;
 import ru.yandex.practicum.shoppingcart.repository.ShoppingCartRepository;
@@ -20,6 +20,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Transactional
 public class ShoppingCartServiceImpl implements ShoppingCartService {
+
     private final ShoppingCartRepository shoppingCartRepository;
     private final ShoppingCartMapper shoppingCartMapper;
     private final WarehouseClient warehouseClient;
@@ -75,7 +76,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public BookedProductsDto bookingProducts(String username) {
+    public BookedProductsDto bookingProductsForUser(String username) {
         checkUsername(username);
         ShoppingCart shoppingCart = shoppingCartRepository.findByUsername(username);
         return warehouseClient.bookingProducts(shoppingCartMapper.toShoppingCartDto(shoppingCart));
